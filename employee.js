@@ -35,40 +35,47 @@ connection.connect(err => {
 // View departments, roles, employees
 // Update employee roles
 function start() {
-    inquirer
-        .prompt({
-            name: "addOrViewOrUpdate",
-            type: "list",
-            message: "What would you like to do?",
-            choices: [
-                "View all departments",
-                "View all roles",
-                "View all employees",
-                "Add a department",
-                "Add a role",
-                "Add an employee",
-                "Update employee role"
-            ]
-        })
-        .then(answer => {
-            if (answer.addOrViewOrUpdate === "View all departments") {
+    inquirer.prompt({
+        name: "action",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+            "View all departments",
+            "View all roles",
+            "View all employees",
+            "Add a department",
+            "Add a role",
+            "Add an employee",
+            "Update employee role",
+            "Nothing"
+        ]
+    }).then((answer) => {
+        switch (answer.action) {
+            case "View all departments":
                 viewDepts();
-            } else if (answer.addOrViewOrUpdate === "View all roles") {
+
+            case "View all roles":
                 viewRoles();
-            } else if (answer.addOrViewOrUpdate === "View all employees") {
+
+            case "View all employees":
                 viewEes();
-            } else if (answer.addOrViewOrUpdate === "Add a department") {
+
+            case "Add a department":
                 addDept();
-            } else if (answer.addOrViewOrUpdate === "Add a role") {
+
+            case "Add a role":
                 addRole();
-            } else if (answer.addOrViewOrUpdate === "Add an employee") {
+
+            case "Add an employee":
                 addEe();
-            } else if (answer.addOrViewOrUpdate === "Update employee role") {
+
+            case "Update employee role":
                 update();
-            } else {
+
+            case "Nothing":
                 connection.end();
-            }
-        });
+        }
+    });
 }
 
 //===================functions=====================
