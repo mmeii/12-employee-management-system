@@ -47,33 +47,41 @@ function start() {
             "Add a role",
             "Add an employee",
             "Update employee role",
-            "Nothing"
+            "Exit"
         ]
     }).then((answer) => {
         switch (answer.action) {
             case "View all departments":
                 viewDepts();
+                break;
 
             case "View all roles":
                 viewRoles();
+                break;
 
             case "View all employees":
                 viewEes();
+                break;
 
             case "Add a department":
                 addDept();
+                break;
 
             case "Add a role":
                 addRole();
+                break;
 
             case "Add an employee":
                 addEe();
+                break;
 
             case "Update employee role":
                 update();
+                break;
 
-            case "Nothing":
+            case "Exit":
                 connection.end();
+                break;
         }
     });
 }
@@ -82,50 +90,32 @@ function start() {
 
 // function to View all departments,
 function viewDepts() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
-
-            )
-        })
+    connection.query("SELECT * FROM department", (err, data) => {
+        if (err) throw err;
+        console.log("Displaying all departments:");
+        console.table(data);
+        start();
+    });
 }
 
 // function to View all roles
 function viewRoles() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
-
-            )
-        })
+    connection.query("SELECT * FROM role", (err, data) => {
+        if (err) throw err;
+        console.log("Displaying all roles:");
+        console.table(data);
+        start();
+    });
 }
 
 // function to View all employees
 function viewEes() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
-
-            )
-        })
+    connection.query("SELECT * FROM employee", (err, data) => {
+        if (err) throw err;
+        console.log("Displaying all employees:");
+        console.table(data);
+        start();
+    });
 }
 
 // function to Add a department
