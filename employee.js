@@ -19,14 +19,8 @@ const inquirer = require("inquirer");
 //create the connection for database
 const connection = mysql.createConnection({
     host: "localhost",
-
-    // Your port; if not 3306
     port: 3306,
-
-    // Your username
     user: "root",
-
-    // Your password
     password: "root",
     database: "employee_management_db"
 });
@@ -34,4 +28,160 @@ const connection = mysql.createConnection({
 connection.connect(err => {
     if (err) throw err;
     console.log('connection established!');
+    start();
 });
+
+// Add departments, roles, employees
+// View departments, roles, employees
+// Update employee roles
+function start() {
+    inquirer
+        .prompt({
+            name: "addOrViewOrUpdate",
+            type: "list",
+            message: "What would you like to do?",
+            choices: [
+                "View all departments",
+                "View all roles",
+                "View all employees",
+                "Add a department",
+                "Add a role",
+                "Add an employee",
+                "Update employee role"
+            ]
+        })
+        .then(answer => {
+            if (answer.addOrViewOrUpdate === "View all departments") {
+                viewDepts();
+            } else if (answer.addOrViewOrUpdate === "View all roles") {
+                viewRoles();
+            } else if (answer.addOrViewOrUpdate === "View all employees") {
+                viewEes();
+            } else if (answer.addOrViewOrUpdate === "Add a department") {
+                addDept();
+            } else if (answer.addOrViewOrUpdate === "Add a role") {
+                addRole();
+            } else if (answer.addOrViewOrUpdate === "Add an employee") {
+                addEe();
+            } else if (answer.addOrViewOrUpdate === "Update employee role") {
+                update();
+            } else {
+                connection.end();
+            }
+        });
+}
+
+//===================functions=====================
+
+// function to View all departments,
+function viewDepts() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to View all roles
+function viewRoles() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to View all employees
+function viewEes() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to Add a department
+function addDept() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to Add a role
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to Add an employee
+function addEe() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
+// function to Update employee role
+function update() {
+    inquirer
+        .prompt([
+            {
+                name: "department",
+                type: "input"
+            },
+        ])
+        .then(answer => {
+            connection.query(
+
+            )
+        })
+}
+
