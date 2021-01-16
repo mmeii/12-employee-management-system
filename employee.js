@@ -120,65 +120,73 @@ function viewEes() {
 
 // function to Add a department
 function addDept() {
-    inquirer
-        .prompt([
+    inquirer.prompt([
+        {
+            name: "department",
+            type: "input",
+            message: "What is the new department name?",
+            validate: (value) => {
+                if (value) {
+                    return true;
+                } else {
+                    console.log("Please enter department name");
+                }
+            }
+        },
+    ]).then(answer => {
+        connection.query(
+            "INSERT INTO department SET ?",
             {
-                name: "department",
-                type: "input"
+                name: answer.department
             },
-        ])
-        .then(answer => {
-            connection.query(
-
-            )
-        })
+            (err) => {
+                if (err) throw err;
+                console.log(`New department ${answer.department} has been added!`);
+                start();
+            }
+        );
+    });
 }
 
 // function to Add a role
 function addRole() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
+    inquirer.prompt([
+        {
+            name: "department",
+            type: "input"
+        },
+    ]).then(answer => {
+        connection.query(
 
-            )
-        })
+        )
+    })
 }
 
 // function to Add an employee
 function addEe() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
+    inquirer.prompt([
+        {
+            name: "department",
+            type: "input"
+        },
+    ]).then(answer => {
+        connection.query(
 
-            )
-        })
+        )
+    })
 }
 
 // function to Update employee role
 function update() {
-    inquirer
-        .prompt([
-            {
-                name: "department",
-                type: "input"
-            },
-        ])
-        .then(answer => {
-            connection.query(
+    inquirer.prompt([
+        {
+            name: "department",
+            type: "input"
+        },
+    ]).then(answer => {
+        connection.query(
 
-            )
-        })
+        )
+    })
 }
 
