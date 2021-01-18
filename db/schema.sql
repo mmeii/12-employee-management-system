@@ -48,8 +48,8 @@ ON employee.role_id = role.department_id;
 -- SELECT *
 -- FROM role;
 
-SELECT *
-FROM employee;
+-- SELECT *
+-- FROM employee;
 
 
 

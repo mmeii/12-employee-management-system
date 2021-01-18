@@ -6,8 +6,6 @@ VALUES
     ("Engineer"),
     ("Finance"),
     ("Legal");
-    
--- SELECT * FROM department;
 
 INSERT INTO role(title, salary, department_id)
 VALUES
@@ -19,8 +17,6 @@ VALUES
     ("Legal Team Lead", 250000, 4),
     ("Lawyer", 190000, 4);
 
--- SELECT * FROM role;
-
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
     ("John", "Doe", 1, NULL),
@@ -30,6 +26,4 @@ VALUES
     ("Malia", "Brown", 5, NULL),
     ("Sarah", "Lourd", 6, NULL),
     ("Tammer", "Galal", 7, 6);
-
--- SELECT * FROM employee;
 
