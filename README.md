@@ -21,6 +21,8 @@ A command line application Content Management Systems for managing a company's e
 * Follow the prompts to finish application
   ![DemoScreenshot](./Assets/ee-manager-start.png)
 
+* [Video Demo](https://drive.google.com/file/d/1TgN2wcUTD8qWdqFfpYRWirEadtz0Zom8/view?usp=sharing)
+
 * Website
   * [Github](https://github.com/mmeii/employee-management-system)
 
