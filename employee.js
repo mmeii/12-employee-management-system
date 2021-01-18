@@ -129,7 +129,7 @@ function addDept() {
                 if (value) {
                     return true;
                 } else {
-                    console.log("Please enter department name");
+                    console.log("Please enter department name.");
                 }
             }
         },
@@ -148,21 +148,78 @@ function addDept() {
     });
 }
 
-// function to Add a role
-function addRole() {
-    inquirer.prompt([
-        {
-            name: "department",
-            type: "input"
-        },
-    ]).then(answer => {
-        connection.query(
+// function to Add a role; prompt role, salary and department
+const addRole = () => {
+    const deptSql = "SELECT * FROM department";
+    connection.query(deptSql, (err, results) => {
+        if (err) throw err;
 
-        )
-    })
+        console.log("List of current departments:");
+        console.table(results);
+        console.log(typeof (results));
+
+        inquirer.prompt([
+            {
+                name: "title",
+                type: "input",
+                message: "What is the title for the new role?",
+                validate: (value) => {
+                    if (value) {
+                        return true;
+                    } else {
+                        console.log("Please enter the title.");
+                    }
+                }
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "What is this new role's salary",
+                validate: (value) => {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    console.log("Please enter a number");
+                }
+            },
+            {
+                name: "department",
+                type: "rawlist",
+                choices: () => {
+                    let choiceArray = [];
+                    for (var i = 0; i < results.length; i++) {
+                        choiceArray.push(results[i].name);
+                    }
+                    return choiceArray;
+                },
+                message: "What department is this new role under?",
+            }
+        ]).then(answer => {
+            let chosenDept;
+            for (let i = 0; i < results.length; i++) {
+                if (results[i].name === answer.department) {
+                    chosenDept = results[i];
+                }
+            }
+
+            connection.query(
+                "INSERT INTO role SET ?",
+                {
+                    title: answer.title,
+                    salary: answer.salary,
+                    department_id: chosenDept.id
+                },
+                (err) => {
+                    if (err) throw err;
+                    console.log(`New role ${answer.title} has been added!`);
+                    start();
+                }
+            )
+        });
+    });
 }
 
-// function to Add an employee
+// function to Add an employee; prompt first_name, last_name, role and manager
 function addEe() {
     inquirer.prompt([
         {
