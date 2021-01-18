@@ -156,7 +156,7 @@ function addDept() {
 }
 
 // function to Add a role; prompt role, salary and department
-function addEe() {
+function addRole() {
     const sql = "SELECT * FROM department";
     connection.query(sql, (err, results) => {
         if (err) throw err;
