@@ -23,7 +23,8 @@ CREATE TABLE employee (
     last_name VARCHAR(30),
     role_id INTEGER,
     manager_id INTEGER,
-    PRIMARY Key (id)
+    PRIMARY Key (id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
 
 SELECT name 
@@ -47,8 +48,8 @@ ON employee.role_id = role.department_id;
 -- SELECT *
 -- FROM role;
 
--- SELECT *
--- FROM employee;
+SELECT *
+FROM employee;
 
 
 

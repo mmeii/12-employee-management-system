@@ -150,13 +150,9 @@ function addDept() {
 
 // function to Add a role; prompt role, salary and department
 const addRole = () => {
-    const deptSql = "SELECT * FROM department";
-    connection.query(deptSql, (err, results) => {
+    const sql = "SELECT * FROM department";
+    connection.query(sql, (err, results) => {
         if (err) throw err;
-
-        console.log("List of current departments:");
-        console.table(results);
-        console.log(typeof (results));
 
         inquirer.prompt([
             {
@@ -187,7 +183,7 @@ const addRole = () => {
                 type: "rawlist",
                 choices: () => {
                     let choiceArray = [];
-                    for (var i = 0; i < results.length; i++) {
+                    for (let i = 0; i < results.length; i++) {
                         choiceArray.push(results[i].name);
                     }
                     return choiceArray;
@@ -219,31 +215,87 @@ const addRole = () => {
     });
 }
 
-// function to Add an employee; prompt first_name, last_name, role and manager
+// function to Add an employee
 function addEe() {
-    inquirer.prompt([
-        {
-            name: "department",
-            type: "input"
-        },
-    ]).then(answer => {
-        connection.query(
+    const sql = "SELECT * FROM employee, role";
+    connection.query(sql, (err, results) => {
+        if (err) throw err;
 
-        )
-    })
+        inquirer.prompt([
+            {
+                name: "firstName",
+                type: "input",
+                message: "What is the first name?",
+                validate: (value) => {
+                    if (value) {
+                        return true;
+                    } else {
+                        console.log("Please enter the first name.");
+                    }
+                }
+            },
+            {
+                name: "lastName",
+                type: "input",
+                message: "What is the last name?",
+                validate: (value) => {
+                    if (value) {
+                        return true;
+                    } else {
+                        console.log("Please enter the last name.");
+                    }
+                }
+            },
+            {
+                name: "role",
+                type: "rawlist",
+                choices: () => {
+                    let choiceArray = [];
+                    for (let i = 0; i < results.length; i++) {
+                        choiceArray.push(results[i].title);
+                    }
+                    //remove duplicates
+                    let cleanChoiceArray = [...new Set(choiceArray)];
+                    return cleanChoiceArray;
+                },
+                message: "What is the role?"
+            }
+        ]).then(answer => {
+            let chosenRole;
+
+            for (let i = 0; i < results.length; i++) {
+                if (results[i].title === answer.role) {
+                    chosenRole = results[i];
+                }
+            }
+
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: answer.firstName,
+                    last_name: answer.lastName,
+                    role_id: chosenRole.id,
+                },
+                (err) => {
+                    if (err) throw err;
+                    console.log(`New employee ${answer.firstName} ${answer.lastName} has been added! as a ${answer.role}`);
+                    start();
+                }
+            )
+        });
+    });
 }
 
 // function to Update employee role
-function update() {
-    inquirer.prompt([
-        {
-            name: "department",
-            type: "input"
-        },
-    ]).then(answer => {
-        connection.query(
+// function update() {
+//             inquirer.prompt([
+//                 {
+//                     name: "department",
+//                     type: "input"
+//                 },
+//             ]).then(answer => {
+//                 connection.query(
 
-        )
-    })
-}
-
+//                 )
+//             })
+//         }
