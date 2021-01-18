@@ -15,6 +15,13 @@
 //dependencies
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const figlet = require("figlet");
+
+//figlet application name
+figlet("Employee \n \n Manager", (err, data) => {
+    if (err) throw err;
+    console.log(data);
+})
 
 //create the connection for database
 const connection = mysql.createConnection({
